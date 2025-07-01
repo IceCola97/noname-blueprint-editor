@@ -153,7 +153,7 @@ interface CoreType extends DataType {}
 /**
  * 表示一个游戏结算事件
  */
-interface EventType extends CoreType, PlayerStorageType<EventPlayerKind>, CardSetType {}
+interface GameEventType extends CoreType, PlayerStorageType<EventPlayerKind>, CardSetType {}
 
 // ...
 

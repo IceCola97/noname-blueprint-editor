@@ -51,7 +51,7 @@ interface EntryNode<TArguments extends ArgumentDataTypes> extends FlowNode {
  * 多个显示上的出口节点更便于蓝图使用
  */
 interface EndNode<TReturn extends ReturnDataType> extends FlowNode {
-    inputs: EndInputPort<TReturn>;
+    inputs: EndInputPorts<TReturn>;
     outputs: readonly [];
     enters: readonly [FlowInputPort];
     exits: readonly [];
@@ -74,6 +74,26 @@ interface InstNode extends FlowNode {
      * -> 结束执行
      */
     exits: readonly [FlowOutputPort];
+}
+
+/**
+ * 表示一个复杂的单步指令节点
+ * 代表执行的指令需要额外的流程来构造参数
+ * 
+ * @abstract
+ */
+interface ComplexInstNode extends FlowNode {
+    /**
+     * 进入端口
+     * -> 开始执行
+     */
+    enters: readonly [FlowInputPort];
+    /**
+     * 退出端口
+     * -> 构造参数流程
+     * -> 结束执行
+     */
+    exits: readonly [FlowSublinePort, FlowOutputPort];
 }
 
 /**

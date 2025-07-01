@@ -7,14 +7,21 @@
  * 
  * @abstract
  */
-interface OperationNode extends InstNode {}
+interface OperationNode extends ComplexInstNode {
+    outputs: readonly [OutputPort<GameEventType>];
+}
 
 // ##### 玩家操作节点
 
+// ###### 牌移动
+// 从${牌组A}中以牌是${正反面}向上的方式从${牌组A头尾部}开始移动${牌的要求}的${数量}张牌到${牌组B}
+
+// interface MoveCardNode extends OperationNode {
+//     inputs: InputPorts<[]>;
+// }
+
 interface PlayerDrawNode extends OperationNode {
-    // 从${牌堆}中以牌是${反面}向上的方式从${牌堆顶}开始移动${任意要求}的${n}张牌到$(玩家)的${手牌区域}
-    inputs: readonly [InputPort<PlayerType>, ...];
-    outputs: readonly [OutputPort<EventType>];
+    inputs: InputPorts<[PlayerType, NumberType]>;
 }
 
 // ...
