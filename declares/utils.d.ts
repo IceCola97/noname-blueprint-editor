@@ -68,3 +68,8 @@ type FunctionInputPorts = readonly InputPort<DataType>[];
  * 指定函数的不定类型的输出端口
  */
 type FunctionOutputPorts = readonly [OutputPort<DataType>] | readonly [];
+
+/**
+ * 指定函数的不定类型的实参表达式输入
+ */
+type FunctionArguments = Expression<DataType>[];

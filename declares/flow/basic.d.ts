@@ -8,13 +8,13 @@
 interface BasicInstNode extends InstNode {}
 
 /**
- * 调用自定义函数的节点
+ * 调用自定义无返回值函数的节点
  */
-interface CallNode extends BasicInstNode {
+interface SubroutineNode extends BasicInstNode {
     /**
      * 调用的函数标识符
      */
-    name: string;
+    symbol: string;
     /**
      * 调用的函数输入端口
      */
@@ -22,5 +22,21 @@ interface CallNode extends BasicInstNode {
     /**
      * 调用的函数输出端口
      */
-    outputs: FunctionOutputPorts;
+    outputs: readonly [];
+}
+
+interface ExpressionNode<TInputs extends ArgumentDataTypes, TOutput extends DataType> extends BasicInstNode {
+    /**
+     * 表达式参数输入端口
+     */
+    inputs: InputPorts<TInputs>;
+    /**
+     * 表达式结果输出端口
+     */
+    outputs: readonly [OutputPort<TOutput>];
+    /**
+     * 表示每个输入端口的名称，用于生成表达式
+     */
+    inputSymbols: string[];
+    expression: Expression<TOutput>;
 }

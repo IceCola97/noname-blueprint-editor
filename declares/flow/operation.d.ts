@@ -1,4 +1,6 @@
 /// <reference path="../flowNode.d.ts" />
+/// <reference path="../port.d.ts" />
+/// <reference path="../utils.d.ts" />
 
 // #### 操作节点
 
@@ -20,6 +22,9 @@ interface OperationNode extends ComplexInstNode {
 //     inputs: InputPorts<[]>;
 // }
 
+/**
+ * 表示玩家摸牌的操作
+ */
 interface PlayerDrawNode extends OperationNode {
     inputs: InputPorts<[PlayerType, NumberType]>;
 }
