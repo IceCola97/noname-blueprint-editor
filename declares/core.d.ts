@@ -1,6 +1,7 @@
 // 定义顶级对象类型（当然是暂定喵）
 
 interface Project {
+    // 也许是扩展ID吧喵
     name: string;
     config: ProjectConfig;
 

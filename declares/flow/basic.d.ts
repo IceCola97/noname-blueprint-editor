@@ -38,5 +38,8 @@ interface ExpressionNode<TInputs extends ArgumentDataTypes, TOutput extends Data
      * 表示每个输入端口的名称，用于生成表达式
      */
     inputSymbols: string[];
+    /**
+     * 嵌入的表达式树
+     */
     expression: Expression<TOutput>;
 }

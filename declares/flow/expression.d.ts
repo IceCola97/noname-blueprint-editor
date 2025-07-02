@@ -30,15 +30,16 @@ interface ConstantExpression<TType extends BasicType> extends Expression<TType> 
 /**
  * 表示一个二元表达式
  */
-interface BinaryExpression<TType extends DataType> extends Expression<TType> {
+interface BinaryExpression<TLeft extends DataType, TRight extends DataType, TResult extends DataType>
+    extends Expression<TResult> {
     /**
      * 左侧表达式
      */
-    left: Expression<TType>;
+    left: Expression<TLeft>;
     /**
      * 右侧表达式
      */
-    right: Expression<TType>;
+    right: Expression<TRight>;
 }
 
 /**
@@ -65,108 +66,124 @@ interface CallExpression<TType extends DataType> extends Expression<TType> {
     arguments: FunctionArguments;
 }
 
-declare enum BinaryOperator {
+declare const enum BinaryOperator {
     /**
      * 值相等
      */
-    Equal,
+    equal,
     /**
      * 值不相等
      */
-    NotEqual,
+    notEqual,
     /**
      * 数值相加
      */
-    NumberAdd,
+    numberAdd,
     /**
      * 数值相减
      */
-    NumberSubtract,
+    numberSubtract,
     /**
      * 数值相乘
      */
-    NumberMultiply,
+    numberMultiply,
     /**
      * 数值相除
      */
-    NumberDivide,
+    numberDivide,
     /**
      * 数值取余
      */
-    NumberModulus,
+    numberModulus,
     /**
      * 数值的幂
      */
-    NumberPower,
+    numberPower,
     /**
      * 数值小于比较
      */
-    NumberLessThan,
+    numberLessThan,
     /**
      * 数值小于等于比较
      */
-    NumberLessEqual,
+    numberLessEqual,
     /**
      * 数值大于比较
      */
-    NumberGreaterThan,
+    numberGreaterThan,
     /**
      * 数值大于等于比较
      */
-    NumberGreaterEqual,
+    numberGreaterEqual,
     /**
      * 字符串拼接
      */
-    StringConcat,
+    stringConcat,
     /**
      * 字符串小于比较
      */
-    StringLessThan,
+    stringLessThan,
     /**
      * 字符串小于等于比较
      */
-    StringLessEqual,
+    stringLessEqual,
     /**
      * 字符串大于比较
      */
-    StringGreaterThan,
+    stringGreaterThan,
     /**
      * 字符串大于等于比较
      */
-    StringGreaterEqual,
+    stringGreaterEqual,
     /**
      * 逻辑与
      */
-    LogicalAnd,
+    logicalAnd,
     /**
      * 逻辑或
      */
-    LogicalOr,
+    logicalOr,
     /**
      * 位与
      */
-    BitAnd,
+    bitAnd,
     /**
      * 位或
      */
-    BitOr,
+    bitOr,
     /**
      * 位异或
      */
-    BitXor,
+    bitXor,
 }
 
-declare enum UnaryOperator {
+declare const enum UnaryOperator {
     /**
      * 逻辑非
      */
-    LogicalNot,
+    logicalNot,
     /**
      * 位取反
      */
-    BitNot,
+    bitNot,
     /**
      * 取负数
      */
-    Negative,
+    negative,
+    /**
+     * 转换成字符串
+     */
+    toString,
+    /**
+     * 转换成数字
+     */
+    toNumber,
+    /**
+     * 转换成整数
+     */
+    toInteger,
+    /**
+     * 转换成布尔值
+     */
+    toBoolean,
 }
