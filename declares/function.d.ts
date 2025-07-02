@@ -1,9 +1,9 @@
 /**
- * 表示函数结构节点
+ * 表示一个函数
  * 
  * @abstract
  */
-interface FunctionNode<TArguments extends ArgumentDataTypes, TReturn extends ReturnDataType> {
+interface FunctionItem<TArguments extends ArgumentDataTypes, TReturn extends ReturnDataType> extends ContentItem {
     /**
      * 表示输入的参数类型
      */
@@ -15,11 +15,25 @@ interface FunctionNode<TArguments extends ArgumentDataTypes, TReturn extends Ret
 }
 
 /**
+ * 表示由原生代码编写的函数
+ * 
+ * @abstract
+ */
+interface CodeFunctionItem<TArguments extends ArgumentDataTypes, TReturn extends ReturnDataType>
+    extends FunctionItem<TArguments, TReturn> {
+    /**
+     * 表示当前函数的代码内容
+     */
+    code: string;
+}
+
+/**
  * 表示编辑器生成的函数结构节点
  * 
  * @abstract
  */
-interface FlowFunctionNode<TArguments extends ArgumentDataTypes, TReturn extends ReturnDataType> extends FunctionNode<TArguments, TReturn> {
+interface FlowFunctionItem<TArguments extends ArgumentDataTypes, TReturn extends ReturnDataType>
+    extends FunctionItem<TArguments, TReturn> {
     /**
      * 表示蓝图执行流的入口节点
      */
@@ -30,36 +44,32 @@ interface FlowFunctionNode<TArguments extends ArgumentDataTypes, TReturn extends
     endNode: EndNode<TReturn>;
 }
 
+interface BuiltinFunction<TSymbol extends string, TArguments extends ArgumentDataTypes, TReturn extends ReturnDataType>
+    extends CodeFunctionItem<TArguments, TReturn> {
+    /**
+     * 表示内建函数的名称
+     */
+    symbol: TSymbol;
+    /**
+     * 内建函数标志
+     */
+    builtin: true;
+}
+
 /**
  * 表示一个编辑器运行时确定参数参数与返回值类型的函数
  * 
- * 同时也表示用户在当前技能或牌中声明的一个自定义函数
- * 
  * @abstract
  */
-interface UserFunctionNode extends FunctionNode<ArgumentDataTypes, ReturnDataType> {
-    /**
-     * 表示函数的引用标识符
-     * 
-     * 调用函数应该使用此项
-     */
-    symbol: string;
-}
+interface UserFunction extends FunctionItem<ArgumentDataTypes, ReturnDataType> {}
 
 /**
  * 表示通过编辑器生成的用户定义的函数
  */
-interface UserFlowFunctionNode extends UserFunctionNode, FlowFunctionNode<ArgumentDataTypes, ReturnDataType> {}
+interface UserFlowFunction extends UserFunction, FlowFunctionItem<ArgumentDataTypes, ReturnDataType> {}
 
 /**
- * 表示一个包含JavaScript函数代码的函数
- * 
- * 此函数是一个用户定义函数
+ * 表示一个用户定义函数
  * 由用户自行管理类型与返回值，但可能出现编辑器无法预料的错误
  */
-interface UserCodeFunctionNode extends UserFunctionNode {
-    /**
-     * 表示当前代码节点的内容
-     */
-    code: string;
-}
+interface UserCodeFunction extends UserFunction, CodeFunctionItem<ArgumentDataTypes, ReturnDataType> {}
