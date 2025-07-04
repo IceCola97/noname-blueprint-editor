@@ -820,6 +820,11 @@ export class ExpressionNode<TResult extends IBpData>
         this.inputs.push(port);
     }
 
+    /**
+     * 通过标识符获取对应端口
+     * @param symbol 标识符
+     * @returns 
+     */
     getInputPort(symbol: string): InputPort<IBpData> {
         const port = this._symbolMap.get(symbol);
 
@@ -831,6 +836,8 @@ export class ExpressionNode<TResult extends IBpData>
     }
 
     override execute(context: ExecutionContext, port: IBpEnterPort): NodeReturn {
+        // 检查输入，没有输入的表达式是没有意义的
+        // 常量的计算与输出应该依赖于编译
         if (!this.inputs.length) {
             throw new RangeError("表达式节点没有添加任何输入端口");
         }
@@ -841,7 +848,9 @@ export class ExpressionNode<TResult extends IBpData>
             throw new ReferenceError("表达式节点没有设置表达式");
         }
 
+        // 评估表达式，依赖于表达式的多态实现具体效果
         const value = exp.evaluate(context, this);
+        // 最后将表达式结果作为输出状态
         context.output(this.outputs[0], value);
         return this.exits[0];
     }
