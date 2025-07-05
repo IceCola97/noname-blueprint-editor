@@ -52,7 +52,7 @@ export interface IBpInputPort<TType extends IBpData> extends IBpDataPort<TType> 
     /**
      * 当前依赖的输出端口
      */
-    get target(): IBpOutputPort<TType> | null;
+    target: IBpOutputPort<TType> | null;
 }
 
 export interface IBpOutputPort<TType extends IBpData> extends IBpDataPort<TType> {

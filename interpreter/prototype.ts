@@ -663,7 +663,7 @@ export class VarNode<TType extends IBpData> extends FlowNode implements IBpInstN
         return this.exits[0];
     }
 
-    override onInput<TType extends IBpData>(context: ExecutionContext, data: TType, port: InputPort<TType>): void {
+    override onInput<TInputType extends TType>(context: ExecutionContext, data: TInputType, port: InputPort<TInputType>): void {
         const inputPort = port as InputPort<IBpData>;
 
         if (inputPort === this.inputs[0]) {

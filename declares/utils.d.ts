@@ -72,6 +72,9 @@ export type BpFunctionOutputPorts = [IBpOutputPort<IBpData>] | [];
  */
 export type BpFunctionArguments = IBpExpression<IBpData>[];
 
+/**
+ * 表示与表达式输入端口相同的标识符数量
+ */
 export type BpExpSymbols<TInputs extends BpArgumentDataTypes> = [
     ...{ [TIndex in keyof TInputs]: string }
 ];
